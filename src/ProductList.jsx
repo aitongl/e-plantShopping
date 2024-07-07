@@ -1,5 +1,6 @@
 import React, { useState,useEffect } from 'react';
 import './ProductList.css'
+import { addItem } from '../CreateSlice'
 function ProductList() {
   
     const plantsArray = [
@@ -229,6 +230,15 @@ function ProductList() {
     fontSize: '30px',
     textDecoration: 'none',
    }
+   const handleAddToCart = (product) => {
+    dispatch(addItem(product));
+    setAddedToCart((prevState) =>({
+        ...prevState,
+        [product.name]: true,
+    }));
+   };
+
+   const [addedToCart, setAddedToCart] = useState({});
     return (
         <div>
              <div className="navbar" style={styleObj}>
@@ -251,10 +261,16 @@ function ProductList() {
         </div>
 
         <div className="product-grid">
-
-
+            {category.plants.map((plant, plantIndex) => (
+                <div className="product-card" key={plantIndex}>
+                    <img className="product-image" src={plant.image} alt={plant.name}></img>
+                    <div className="product-title">{plant.name}</div>
+                    <div className="product-description">{plant.description} </div>
+                    <div className="product-cost">{plant.cost}</div>
+                    <button onClick={() => handleAddToCart(plant)}>Add to Cart</button>
+                </div>
+            ))}
         </div>
-
     </div>
     );
 }

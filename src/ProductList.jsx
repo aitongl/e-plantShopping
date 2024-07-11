@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import './ProductList.css'
-import { addItem } from '../CreateSlice'
 function ProductList() {
   
     const plantsArray = [
